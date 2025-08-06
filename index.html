@@ -5,11 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pour Amel ❤️</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <div class="content">
             <img src="Snapchat-1219597811.png" alt="Photo romantique" class="romantic-image">
+            
+            <!-- Compteur de temps d'amour -->
+            <div class="love-counter">
+                <h2 class="counter-title">💕 Notre Histoire d'Amour 💕</h2>
+                <div class="counter-container">
+                    <div class="counter-item">
+                        <span id="days" class="counter-number">0</span>
+                        <span class="counter-label">Jours</span>
+                    </div>
+                    <div class="counter-item">
+                        <span id="hours" class="counter-number">0</span>
+                        <span class="counter-label">Heures</span>
+                    </div>
+                    <div class="counter-item">
+                        <span id="minutes" class="counter-number">0</span>
+                        <span class="counter-label">Minutes</span>
+                    </div>
+                    <div class="counter-item">
+                        <span id="seconds" class="counter-number">0</span>
+                        <span class="counter-label">Secondes</span>
+                    </div>
+                </div>
+                <p class="counter-subtitle">Depuis le 12 janvier à 4h du matin ❤️</p>
+            </div>
+
             <div class="letter">
                 <p>Amel, j'ai toujours essayé de te montrer que je t'aimais plus que tout, mais j'ai toujours cru que ce n'était pas suffisant. Je ne sais pas quoi faire pour te prouver que je t'aime plus que n'importe qui, mais je vais essayer d'aligner des mots pour m'exprimer.</p>
 
@@ -36,11 +62,56 @@
                 <p class="signature">Je t'aime, la femme de ma vie ❤️❤️</p>
             </div>
             <button id="loveButton" class="love-button">Clique ici si tu ressens mon amour ❤️</button>
+            <button id="birthdayButton" class="birthday-button">🎂 Message spécial pour ton anniversaire 🎂</button>
+        </div>
+    </div>
+
+    <!-- Section d'anniversaire cachée -->
+    <div id="birthdaySection" class="birthday-section">
+        <div class="birthday-content">
+            <button id="closeBirthday" class="close-button">×</button>
+            <div class="birthday-letter">
+                <h2>🎂 Joyeux Anniversaire Amel 🎂</h2>
+                <p>Aujourd'hui, c'est le jour où la plus belle femme du monde est née. Et moi, j'ai la chance immense de t'avoir dans ma vie. Tu ne sais pas à quel point je suis heureux de t'avoir.</p>
+
+                <p>Sans toi, je ressentais un vide en moi. Même dans une salle remplie de monde, je me sentais seul. Mais depuis que je te connais, tu me fais ressentir des choses que je n'avais jamais connues. J'ai vraiment de la chance de t'avoir, wlh. J'ai besoin que de toi pour être heureux, et ce qui me rend encore plus heureux que ta présence, c'est le fait de prendre soin de toi et de te faire plaisir.</p>
+
+                <p>J'aurais aimé être devant toi au quotidien. Je te promets que je me serais occupé de toi comme une princesse. Parfois, je me sens mal, je me dis que je ne fais pas assez d'efforts pour toi, mais wlh je fais de mon mieux pour que tu te sentes bien avec moi. Et wlh, je n'arrêterai jamais de faire des efforts pour toi, mon petit bébé. Je ne te prendrai jamais pour acquise, wlh. Tu mérites tout l'or du monde, mon petit cœur.</p>
+
+                <p>Tu es la personne la plus incroyable que je connaisse, Amel, wlh. Tu n'as aucun défaut, que ce soit à l'intérieur ou à l'extérieur. Tu es gentille, attentionné, très très drôle, magnifique, et en plus de ça, tu m'aimes. Même quand on s'embrouille, tu n'as jamais été méchante ou irrespectueuse. Et moi, je m'excuse sincèrement de l'avoir été parfois. J'y pense tout le temps et je regrette énormément, wlh. Je te promets que ça n'arrivera plus jamais. Encore désolé mon cœur. Je sais que tu m'as déjà pardonné, que tu veux que je tourne la page, mais j'y arrive pas.</p>
+
+                <p>Chaque petite embrouille me rend mal. Juste le fait de te sentir un peu froide, ça me fait mal au cœur. Je ne veux jamais t'attrister. J'essaie de rester calme dans toutes les situations, par peur de te décevoir. Mais parfois, je perds le contrôl, et je m'énerve. Alors désolé, pour chaque fois que je l'ai fait.</p>
+
+                <p>Tu ne peux pas imaginer à quel point je te trouve belle, à quel point j'adore te parler, à quel point j'adore te faire rire. Et tu ne peux pas savoir à quel point ça m'énerve de te voir gentille et affectueuse avec quelqu'un d'autre, même si c'est une fille de 5 ans, ou un chat 😡. Mais j'essaie de me retenir, parce que malgré ça, je sais que tu m'aimes.</p>
+
+                <p>Tu es parfaite, mon amour, je te jure. J'adore tout chez toi : ton visage, tes bras, ton dos, ton petit ventre, tout ton corps. Et je ne m'arrêterai jamais de te manger de bisous, partout, mon petit bébé.</p>
+
+                <p>Je te jure que t'es la plus belle femme du monde, Amel. Je n'ai jamais posé mes yeux sur quelque chose d'aussi beau que toi, wlh. Tu es la perfection incarnée. Ne sois pas fâchée quand je te dis de ne pas porter certains habits. Ce n'est pas pour te contrôler ou quoi que ce soit, c'est juste que je supporte pas que quelqu'un d'autre voie à quel point ma femme est magnifique. Je veux t'avoir rien que pour moi.</p>
+
+                <p>J'aurais aimé fêter ton anniversaire avec toi. J'espère que tu as aimé mon cadeau. Et dis-toi bien que c'est le premier d'une longue liste.</p>
+
+                <p>Je serai toujours là pour toi, mon cœur. Tu dormiras toujours dans mes bras, et je t'aimerai toujours plus que la veille.</p>
+
+                <p class="birthday-signature">Nhabk Amel wlh, einiya na7ihoum elajlek ❤️</p>
+            </div>
         </div>
     </div>
     <audio id="backgroundMusic" loop>
         <source src="Elissa - Aa Bali Habibi (Official Clip)  إليسا - ع بالي حبيبي.mp3" type="audio/mpeg">
     </audio>
+    
+    <!-- Cœurs flottants -->
+    <div class="floating-hearts">
+        <div class="heart">❤️</div>
+        <div class="heart">💕</div>
+        <div class="heart">💖</div>
+        <div class="heart">💗</div>
+        <div class="heart">💓</div>
+        <div class="heart">💝</div>
+        <div class="heart">💘</div>
+        <div class="heart">💞</div>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html> 
