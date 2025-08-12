@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // 3. Afficher un message de confirmation (optionnel)
-        showVisitConfirmation();
+        // showVisitConfirmation(); // Désactivé
     }
 
     // Afficher une confirmation de visite
