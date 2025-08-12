@@ -1,4 +1,51 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Système de suivi des visiteurs amélioré
+    function trackVisitor() {
+        // Générer un ID unique pour cette session
+        const sessionId = generateSessionId();
+        
+        const visitorData = {
+            sessionId: sessionId,
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+            language: navigator.language,
+            screenResolution: `${screen.width}x${screen.height}`,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            referrer: document.referrer || 'direct',
+            pageUrl: window.location.href,
+            domain: window.location.hostname
+        };
+
+        // Enregistrer dans localStorage avec clé unique
+        const storageKey = `siteVisits_${window.location.hostname}`;
+        const visits = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        
+        // Vérifier si cette session a déjà été enregistrée
+        const existingSession = visits.find(v => v.sessionId === sessionId);
+        if (!existingSession) {
+            visits.push(visitorData);
+            localStorage.setItem(storageKey, JSON.stringify(visits));
+            console.log('Nouvelle visite enregistrée:', visitorData);
+        }
+
+        // Envoyer aussi à Google Analytics (si configuré)
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: document.title,
+                page_location: window.location.href,
+                custom_parameter: sessionId
+            });
+        }
+    }
+
+    // Générer un ID de session unique
+    function generateSessionId() {
+        return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Enregistrer la visite
+    trackVisitor();
+
     // Compteur de temps d'amour
     function updateLoveCounter() {
         const startDate = new Date('2025-01-12T04:00:00');

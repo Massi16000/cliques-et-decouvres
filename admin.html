@@ -160,7 +160,24 @@
 
     <script>
         function loadVisitorData() {
-            const visits = JSON.parse(localStorage.getItem('siteVisits') || '[]');
+            // Récupérer les données de tous les domaines
+            const allVisits = [];
+            const keys = Object.keys(localStorage);
+            
+            keys.forEach(key => {
+                if (key.startsWith('siteVisits_')) {
+                    const domainVisits = JSON.parse(localStorage.getItem(key) || '[]');
+                    allVisits.push(...domainVisits);
+                }
+            });
+            
+            // Si pas de données avec le nouveau système, essayer l'ancien
+            if (allVisits.length === 0) {
+                const oldVisits = JSON.parse(localStorage.getItem('siteVisits') || '[]');
+                allVisits.push(...oldVisits);
+            }
+            
+            const visits = allVisits;
             
             if (visits.length === 0) {
                 document.getElementById('visitorsContainer').innerHTML = 
@@ -200,20 +217,38 @@
                     <div class="visitor-time">
                         ${visitDate.toLocaleString('fr-FR')}
                     </div>
-                    <div class="visitor-details">
-                        <div><strong>Navigateur:</strong> ${visit.userAgent.split(' ').slice(-2).join(' ')}</div>
-                        <div><strong>Langue:</strong> ${visit.language}</div>
-                        <div><strong>Résolution:</strong> ${visit.screenResolution}</div>
-                        <div><strong>Fuseau horaire:</strong> ${visit.timezone}</div>
-                        <div><strong>Source:</strong> ${visit.referrer === 'direct' ? 'Accès direct' : visit.referrer}</div>
-                    </div>
+                                         <div class="visitor-details">
+                         <div><strong>Navigateur:</strong> ${visit.userAgent.split(' ').slice(-2).join(' ')}</div>
+                         <div><strong>Langue:</strong> ${visit.language}</div>
+                         <div><strong>Résolution:</strong> ${visit.screenResolution}</div>
+                         <div><strong>Fuseau horaire:</strong> ${visit.timezone}</div>
+                         <div><strong>Source:</strong> ${visit.referrer === 'direct' ? 'Accès direct' : visit.referrer}</div>
+                         <div><strong>Domaine:</strong> ${visit.domain || 'Local'}</div>
+                     </div>
                 `;
                 container.appendChild(visitorItem);
             });
         }
 
         function exportData() {
-            const visits = JSON.parse(localStorage.getItem('siteVisits') || '[]');
+            // Récupérer les données de tous les domaines
+            const allVisits = [];
+            const keys = Object.keys(localStorage);
+            
+            keys.forEach(key => {
+                if (key.startsWith('siteVisits_')) {
+                    const domainVisits = JSON.parse(localStorage.getItem(key) || '[]');
+                    allVisits.push(...domainVisits);
+                }
+            });
+            
+            // Si pas de données avec le nouveau système, essayer l'ancien
+            if (allVisits.length === 0) {
+                const oldVisits = JSON.parse(localStorage.getItem('siteVisits') || '[]');
+                allVisits.push(...oldVisits);
+            }
+            
+            const visits = allVisits;
             const dataStr = JSON.stringify(visits, null, 2);
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             
