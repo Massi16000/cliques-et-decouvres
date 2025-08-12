@@ -39,6 +39,19 @@
             margin-bottom: 10px;
         }
 
+        .info-box {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 5px;
+        }
+
+        .info-box h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -64,6 +77,32 @@
         .stat-label {
             font-size: 1.2em;
             opacity: 0.9;
+        }
+
+        .ga-card {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin: 20px;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
         }
 
         .visitors-list {
@@ -98,27 +137,21 @@
             color: #666;
         }
 
-        .export-btn {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1em;
-            cursor: pointer;
-            margin: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .export-btn:hover {
-            transform: translateY(-2px);
-        }
-
         .no-data {
             text-align: center;
             padding: 50px;
             color: #666;
             font-size: 1.2em;
+        }
+
+        .domain-badge {
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            display: inline-block;
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -129,10 +162,28 @@
             <p>Suivi en temps réel de votre site romantique</p>
         </div>
 
+        <div class="info-box">
+            <h3>ℹ️ Comment fonctionne le suivi</h3>
+            <p><strong>Données locales :</strong> Visites enregistrées sur ce navigateur/domaine</p>
+            <p><strong>Google Analytics :</strong> Visites enregistrées sur tous les domaines (voir ci-dessous)</p>
+            <p><strong>Note :</strong> Les données locales ne sont pas partagées entre différents domaines (local vs GitHub Pages)</p>
+        </div>
+
+        <div class="ga-card">
+            <h2>🔗 Google Analytics</h2>
+            <p>Pour voir TOUTES les visites (local + GitHub Pages) :</p>
+            <a href="https://analytics.google.com" target="_blank" style="color: white; text-decoration: underline;">
+                📈 Ouvrir Google Analytics
+            </a>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                ID de mesure : G-1BP5PE9VNP
+            </p>
+        </div>
+
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-number" id="totalVisits">0</div>
-                <div class="stat-label">Total des Visites</div>
+                <div class="stat-label">Visites Locales</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number" id="uniqueVisitors">0</div>
@@ -148,12 +199,12 @@
             </div>
         </div>
 
-        <button class="export-btn" onclick="exportData()">📥 Exporter les Données</button>
+        <button class="export-btn" onclick="exportData()">📥 Exporter les Données Locales</button>
 
         <div class="visitors-list">
-            <h2>📋 Détail des Visites</h2>
+            <h2>📋 Détail des Visites Locales</h2>
             <div id="visitorsContainer">
-                <div class="no-data">Aucune donnée de visite disponible</div>
+                <div class="no-data">Aucune donnée de visite locale disponible</div>
             </div>
         </div>
     </div>
@@ -181,7 +232,7 @@
             
             if (visits.length === 0) {
                 document.getElementById('visitorsContainer').innerHTML = 
-                    '<div class="no-data">Aucune donnée de visite disponible</div>';
+                    '<div class="no-data">Aucune donnée de visite locale disponible<br><br>💡 <strong>Conseil :</strong> Visitez votre site principal pour générer des données</div>';
                 return;
             }
 
@@ -216,15 +267,15 @@
                 visitorItem.innerHTML = `
                     <div class="visitor-time">
                         ${visitDate.toLocaleString('fr-FR')}
+                        <span class="domain-badge">${visit.domain || 'Local'}</span>
                     </div>
-                                         <div class="visitor-details">
-                         <div><strong>Navigateur:</strong> ${visit.userAgent.split(' ').slice(-2).join(' ')}</div>
-                         <div><strong>Langue:</strong> ${visit.language}</div>
-                         <div><strong>Résolution:</strong> ${visit.screenResolution}</div>
-                         <div><strong>Fuseau horaire:</strong> ${visit.timezone}</div>
-                         <div><strong>Source:</strong> ${visit.referrer === 'direct' ? 'Accès direct' : visit.referrer}</div>
-                         <div><strong>Domaine:</strong> ${visit.domain || 'Local'}</div>
-                     </div>
+                    <div class="visitor-details">
+                        <div><strong>Navigateur:</strong> ${visit.userAgent}</div>
+                        <div><strong>Langue:</strong> ${visit.language}</div>
+                        <div><strong>Résolution:</strong> ${visit.screenResolution}</div>
+                        <div><strong>Fuseau horaire:</strong> ${visit.timezone}</div>
+                        <div><strong>Source:</strong> ${visit.referrer === 'direct' ? 'Accès direct' : visit.referrer}</div>
+                    </div>
                 `;
                 container.appendChild(visitorItem);
             });
@@ -254,7 +305,7 @@
             
             const link = document.createElement('a');
             link.href = URL.createObjectURL(dataBlob);
-            link.download = `visiteurs_${new Date().toISOString().split('T')[0]}.json`;
+            link.download = `visiteurs_locaux_${new Date().toISOString().split('T')[0]}.json`;
             link.click();
         }
 

@@ -1,13 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Système de suivi des visiteurs amélioré
+    // Système de suivi des visiteurs simplifié
     function trackVisitor() {
-        // Générer un ID unique pour cette session
-        const sessionId = generateSessionId();
-        
         const visitorData = {
-            sessionId: sessionId,
             timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent,
+            userAgent: navigator.userAgent.split(' ').slice(-2).join(' '), // Simplifié
             language: navigator.language,
             screenResolution: `${screen.width}x${screen.height}`,
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -16,31 +12,51 @@ document.addEventListener('DOMContentLoaded', function() {
             domain: window.location.hostname
         };
 
-        // Enregistrer dans localStorage avec clé unique
+        // 1. Enregistrer localement
         const storageKey = `siteVisits_${window.location.hostname}`;
         const visits = JSON.parse(localStorage.getItem(storageKey) || '[]');
-        
-        // Vérifier si cette session a déjà été enregistrée
-        const existingSession = visits.find(v => v.sessionId === sessionId);
-        if (!existingSession) {
-            visits.push(visitorData);
-            localStorage.setItem(storageKey, JSON.stringify(visits));
-            console.log('Nouvelle visite enregistrée:', visitorData);
-        }
+        visits.push(visitorData);
+        localStorage.setItem(storageKey, JSON.stringify(visits));
+        console.log('Visite enregistrée:', visitorData);
 
-        // Envoyer aussi à Google Analytics (si configuré)
+        // 2. Envoyer à Google Analytics
         if (typeof gtag !== 'undefined') {
             gtag('event', 'page_view', {
                 page_title: document.title,
-                page_location: window.location.href,
-                custom_parameter: sessionId
+                page_location: window.location.href
             });
         }
+
+        // 3. Afficher un message de confirmation (optionnel)
+        showVisitConfirmation();
     }
 
-    // Générer un ID de session unique
-    function generateSessionId() {
-        return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    // Afficher une confirmation de visite
+    function showVisitConfirmation() {
+        // Créer une notification discrète
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        `;
+        notification.textContent = '✅ Visite enregistrée';
+        document.body.appendChild(notification);
+        
+        // Animer l'apparition
+        setTimeout(() => notification.style.opacity = '1', 100);
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => document.body.removeChild(notification), 300);
+        }, 2000);
     }
 
     // Enregistrer la visite
