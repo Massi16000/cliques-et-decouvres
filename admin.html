@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques des Visiteurs - Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .visitors-list {
+            padding: 30px;
+        }
+
+        .visitors-list h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .visitor-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .visitor-time {
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .visitor-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Statistiques des Visiteurs</h1>
+            <p>Suivi en temps réel de votre site romantique</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalVisits">0</div>
+                <div class="stat-label">Total des Visites</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="uniqueVisitors">0</div>
+                <div class="stat-label">Visiteurs Uniques</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todayVisits">0</div>
+                <div class="stat-label">Visites Aujourd'hui</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="thisWeek">0</div>
+                <div class="stat-label">Cette Semaine</div>
+            </div>
+        </div>
+
+        <button class="export-btn" onclick="exportData()">📥 Exporter les Données</button>
+
+        <div class="visitors-list">
+            <h2>📋 Détail des Visites</h2>
+            <div id="visitorsContainer">
+                <div class="no-data">Aucune donnée de visite disponible</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadVisitorData() {
+            const visits = JSON.parse(localStorage.getItem('siteVisits') || '[]');
+            
+            if (visits.length === 0) {
+                document.getElementById('visitorsContainer').innerHTML = 
+                    '<div class="no-data">Aucune donnée de visite disponible</div>';
+                return;
+            }
+
+            // Calculer les statistiques
+            const totalVisits = visits.length;
+            const uniqueVisitors = new Set(visits.map(v => v.userAgent)).size;
+            
+            const today = new Date().toDateString();
+            const todayVisits = visits.filter(v => 
+                new Date(v.timestamp).toDateString() === today
+            ).length;
+
+            const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+            const thisWeek = visits.filter(v => 
+                new Date(v.timestamp) > weekAgo
+            ).length;
+
+            // Mettre à jour les statistiques
+            document.getElementById('totalVisits').textContent = totalVisits;
+            document.getElementById('uniqueVisitors').textContent = uniqueVisitors;
+            document.getElementById('todayVisits').textContent = todayVisits;
+            document.getElementById('thisWeek').textContent = thisWeek;
+
+            // Afficher la liste des visiteurs
+            const container = document.getElementById('visitorsContainer');
+            container.innerHTML = '';
+
+            visits.reverse().forEach(visit => {
+                const visitDate = new Date(visit.timestamp);
+                const visitorItem = document.createElement('div');
+                visitorItem.className = 'visitor-item';
+                visitorItem.innerHTML = `
+                    <div class="visitor-time">
+                        ${visitDate.toLocaleString('fr-FR')}
+                    </div>
+                    <div class="visitor-details">
+                        <div><strong>Navigateur:</strong> ${visit.userAgent.split(' ').slice(-2).join(' ')}</div>
+                        <div><strong>Langue:</strong> ${visit.language}</div>
+                        <div><strong>Résolution:</strong> ${visit.screenResolution}</div>
+                        <div><strong>Fuseau horaire:</strong> ${visit.timezone}</div>
+                        <div><strong>Source:</strong> ${visit.referrer === 'direct' ? 'Accès direct' : visit.referrer}</div>
+                    </div>
+                `;
+                container.appendChild(visitorItem);
+            });
+        }
+
+        function exportData() {
+            const visits = JSON.parse(localStorage.getItem('siteVisits') || '[]');
+            const dataStr = JSON.stringify(visits, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `visiteurs_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+        }
+
+        // Charger les données au chargement de la page
+        loadVisitorData();
+
+        // Actualiser toutes les 30 secondes
+        setInterval(loadVisitorData, 30000);
+    </script>
+</body>
+</html>
+
