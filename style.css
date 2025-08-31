@@ -566,4 +566,156 @@ body::before {
         transform: translateY(-100px) rotate(360deg);
         opacity: 0;
     }
+}
+
+/* Section cadeau pour la meilleure copine */
+.gift-section {
+    text-align: center;
+    margin: 40px 0;
+    padding: 35px;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
+    border-radius: 25px;
+    border: 3px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 
+        0 15px 35px rgba(255, 215, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    position: relative;
+    overflow: hidden;
+    animation: giftGlow 4s ease-in-out infinite alternate;
+}
+
+.gift-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: giftShimmer 3s ease-in-out infinite;
+}
+
+@keyframes giftGlow {
+    from { box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2); }
+    to { box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4); }
+}
+
+@keyframes giftShimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.gift-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8em;
+    color: #ff8c00;
+    margin-bottom: 25px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+    animation: giftTitleFloat 3s ease-in-out infinite alternate;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes giftTitleFloat {
+    from { transform: translateY(0); }
+    to { transform: translateY(-5px); }
+}
+
+.gift-content {
+    position: relative;
+    z-index: 2;
+}
+
+.gift-message {
+    font-size: 1.3em;
+    color: #ff6b35;
+    margin-bottom: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.gift-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 35px;
+    background: linear-gradient(45deg, #ffd700, #ffa500);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1.2em;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 
+        0 10px 25px rgba(255, 215, 0, 0.4),
+        0 0 0 2px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.gift-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+}
+
+.gift-link:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 
+        0 20px 40px rgba(255, 215, 0, 0.6),
+        0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.gift-link:hover::before {
+    left: 100%;
+}
+
+.gift-link-text {
+    position: relative;
+    z-index: 2;
+}
+
+.gift-link-icon {
+    font-size: 1.5em;
+    position: relative;
+    z-index: 2;
+    animation: ribbonBounce 2s ease-in-out infinite;
+}
+
+@keyframes ribbonBounce {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+/* Responsive pour la section cadeau */
+@media (max-width: 768px) {
+    .gift-section {
+        padding: 25px;
+        margin: 30px 0;
+    }
+    
+    .gift-title {
+        font-size: 2.2em;
+    }
+    
+    .gift-message {
+        font-size: 1.1em;
+    }
+    
+    .gift-link {
+        padding: 15px 25px;
+        font-size: 1em;
+        flex-direction: column;
+        gap: 10px;
+    }
 } 
