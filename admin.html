@@ -164,9 +164,23 @@
 
         <div class="info-box">
             <h3>ℹ️ Comment fonctionne le suivi</h3>
-            <p><strong>Données locales :</strong> Visites enregistrées sur ce navigateur/domaine</p>
-            <p><strong>Google Analytics :</strong> Visites enregistrées sur tous les domaines (voir ci-dessous)</p>
-            <p><strong>Note :</strong> Les données locales ne sont pas partagées entre différents domaines (local vs GitHub Pages)</p>
+            <p><strong>✅ Système de tracking complet :</strong> Toutes les visites sont enregistrées, même sur GitHub Pages !</p>
+            <p><strong>📊 Données locales :</strong> Visites enregistrées sur ce navigateur (backup)</p>
+            <p><strong>🌐 Données serveur :</strong> Toutes les visites depuis n'importe où (via webhook/service)</p>
+            <p><strong>📈 Google Analytics :</strong> Visites enregistrées sur tous les domaines (voir ci-dessous)</p>
+            <p><strong>💡 Note :</strong> Pour voir toutes les visites en temps réel, configurez le webhook dans tracking-config.js</p>
+        </div>
+
+        <div class="info-box" style="background: #fff3cd; border-left-color: #ffc107;">
+            <h3>⚙️ Configuration du tracking</h3>
+            <p><strong>Pour activer le tracking complet :</strong></p>
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li>Ouvrez le fichier <code>tracking-config.js</code></li>
+                <li>Allez sur <a href="https://webhook.site" target="_blank">webhook.site</a> (gratuit)</li>
+                <li>Copiez l'URL unique générée</li>
+                <li>Collez-la dans <code>webhookUrl</code> dans tracking-config.js</li>
+                <li>Toutes les visites seront visibles sur webhook.site en temps réel !</li>
+            </ol>
         </div>
 
         <div class="ga-card">
@@ -183,7 +197,7 @@
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-number" id="totalVisits">0</div>
-                <div class="stat-label">Visites Locales</div>
+                <div class="stat-label">Total Visites</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number" id="uniqueVisitors">0</div>
@@ -199,40 +213,167 @@
             </div>
         </div>
 
+        <div style="padding: 20px; text-align: center;">
+            <button class="export-btn" onclick="refreshData()" style="margin-right: 10px;">🔄 Actualiser les Données</button>
+            <button class="export-btn" onclick="exportData()">📥 Exporter les Données</button>
+        </div>
+
         <button class="export-btn" onclick="exportData()">📥 Exporter les Données Locales</button>
 
         <div class="visitors-list">
-            <h2>📋 Détail des Visites Locales</h2>
+            <h2>📋 Détail de Toutes les Visites</h2>
+            <div style="margin-bottom: 20px;">
+                <label style="margin-right: 10px;">
+                    <input type="radio" name="dataSource" value="all" checked onchange="loadVisitorData()">
+                    Toutes les visites (local + serveur)
+                </label>
+                <label style="margin-right: 10px;">
+                    <input type="radio" name="dataSource" value="local" onchange="loadVisitorData()">
+                    Visites locales uniquement
+                </label>
+                <label>
+                    <input type="radio" name="dataSource" value="server" onchange="loadVisitorData()">
+                    Visites serveur uniquement
+                </label>
+            </div>
             <div id="visitorsContainer">
-                <div class="no-data">Aucune donnée de visite locale disponible</div>
+                <div class="no-data">Chargement des données...</div>
             </div>
         </div>
     </div>
 
+    <script src="tracking-config.js"></script>
     <script>
-        function loadVisitorData() {
-            // Récupérer les données de tous les domaines
-            const allVisits = [];
+        let allVisitsData = [];
+        let serverVisitsData = [];
+
+        // Fonction pour charger les données depuis le serveur/webhook
+        async function loadServerData() {
+            try {
+                const config = await loadTrackingConfig();
+                
+                if (config.webhookUrl && config.webhookUrl !== 'https://webhook.site/VOTRE-URL-UNIQUE') {
+                    // Pour webhook.site, on ne peut pas récupérer directement
+                    // Mais on peut afficher un lien vers le dashboard
+                    console.log('Webhook configuré:', config.webhookUrl);
+                    // Note: webhook.site ne permet pas de récupérer les données via API
+                    // Il faut aller sur le site webhook.site pour voir les requêtes
+                    return [];
+                }
+                
+                // Si vous avez votre propre endpoint, vous pouvez récupérer les données ici
+                if (config.customEndpoint && config.customEndpoint !== 'https://votre-serveur.com/api/track') {
+                    try {
+                        const response = await fetch(config.customEndpoint.replace('/track', '/visits'));
+                        if (response.ok) {
+                            const data = await response.json();
+                            return data.visits || [];
+                        }
+                    } catch (error) {
+                        console.log('Impossible de récupérer les données serveur:', error);
+                    }
+                }
+                
+                return [];
+            } catch (error) {
+                console.error('Erreur lors du chargement des données serveur:', error);
+                return [];
+            }
+        }
+
+        // Fonction pour charger la configuration
+        async function loadTrackingConfig() {
+            try {
+                const response = await fetch('tracking-config.js');
+                const text = await response.text();
+                const webhookMatch = text.match(/webhookUrl:\s*['"]([^'"]+)['"]/);
+                const formspreeMatch = text.match(/formspreeUrl:\s*['"]([^'"]+)['"]/);
+                const customMatch = text.match(/customEndpoint:\s*['"]([^'"]+)['"]/);
+                
+                return {
+                    webhookUrl: webhookMatch ? webhookMatch[1] : null,
+                    formspreeUrl: formspreeMatch ? formspreeMatch[1] : null,
+                    customEndpoint: customMatch ? customMatch[1] : null
+                };
+            } catch (error) {
+                return { webhookUrl: null, formspreeUrl: null, customEndpoint: null };
+            }
+        }
+
+        async function loadVisitorData() {
+            // Récupérer les données locales
+            const localVisits = [];
             const keys = Object.keys(localStorage);
             
             keys.forEach(key => {
                 if (key.startsWith('siteVisits_')) {
                     const domainVisits = JSON.parse(localStorage.getItem(key) || '[]');
-                    allVisits.push(...domainVisits);
+                    localVisits.push(...domainVisits);
                 }
             });
             
-            // Si pas de données avec le nouveau système, essayer l'ancien
-            if (allVisits.length === 0) {
+            if (localVisits.length === 0) {
                 const oldVisits = JSON.parse(localStorage.getItem('siteVisits') || '[]');
-                allVisits.push(...oldVisits);
+                localVisits.push(...oldVisits);
+            }
+
+            // Récupérer les données serveur
+            serverVisitsData = await loadServerData();
+
+            // Déterminer quelle source utiliser
+            const dataSource = document.querySelector('input[name="dataSource"]:checked')?.value || 'all';
+            
+            let visits = [];
+            if (dataSource === 'all') {
+                // Combiner local + serveur (enlever les doublons basés sur visitId)
+                const allVisits = [...localVisits, ...serverVisitsData];
+                const uniqueVisits = [];
+                const seenIds = new Set();
+                
+                allVisits.forEach(visit => {
+                    const id = visit.visitId || visit.timestamp + visit.userAgent;
+                    if (!seenIds.has(id)) {
+                        seenIds.add(id);
+                        uniqueVisits.push(visit);
+                    }
+                });
+                visits = uniqueVisits;
+            } else if (dataSource === 'local') {
+                visits = localVisits;
+            } else if (dataSource === 'server') {
+                visits = serverVisitsData;
             }
             
-            const visits = allVisits;
+            allVisitsData = visits;
             
             if (visits.length === 0) {
-                document.getElementById('visitorsContainer').innerHTML = 
-                    '<div class="no-data">Aucune donnée de visite locale disponible<br><br>💡 <strong>Conseil :</strong> Visitez votre site principal pour générer des données</div>';
+                loadTrackingConfig().then(config => {
+                    let message = 'Aucune donnée de visite disponible';
+                
+                if (dataSource === 'server') {
+                    if (config.webhookUrl && config.webhookUrl !== 'https://webhook.site/VOTRE-URL-UNIQUE') {
+                        message = `Aucune donnée serveur disponible.<br><br>💡 <strong>Pour voir les visites en temps réel :</strong><br>
+                        <a href="${config.webhookUrl}" target="_blank" style="color: #2196f3; text-decoration: underline;">
+                            Ouvrir le dashboard webhook.site
+                        </a><br><br>
+                        Toutes les visites sont enregistrées sur webhook.site en temps réel !`;
+                    } else {
+                        message = 'Aucune donnée serveur disponible.<br><br>💡 Configurez le webhook dans tracking-config.js pour voir toutes les visites.';
+                    }
+                } else if (dataSource === 'local') {
+                    message = 'Aucune donnée locale disponible.<br><br>💡 Visitez votre site principal pour générer des données locales.';
+                } else {
+                    message = 'Aucune donnée disponible.<br><br>💡 Configurez le tracking dans tracking-config.js pour voir toutes les visites.';
+                }
+                
+                    document.getElementById('visitorsContainer').innerHTML = `<div class="no-data">${message}</div>`;
+                });
+                
+                // Afficher quand même les stats à 0
+                document.getElementById('totalVisits').textContent = '0';
+                document.getElementById('uniqueVisitors').textContent = '0';
+                document.getElementById('todayVisits').textContent = '0';
+                document.getElementById('thisWeek').textContent = '0';
                 return;
             }
 
@@ -270,11 +411,15 @@
                         <span class="domain-badge">${visit.domain || 'Local'}</span>
                     </div>
                     <div class="visitor-details">
-                        <div><strong>Navigateur:</strong> ${visit.userAgent}</div>
+                        <div><strong>Navigateur:</strong> ${visit.browser || getBrowserFromUA(visit.userAgent)}</div>
+                        <div><strong>Appareil:</strong> ${visit.device || getDeviceFromUA(visit.userAgent)}</div>
                         <div><strong>Langue:</strong> ${visit.language}</div>
-                        <div><strong>Résolution:</strong> ${visit.screenResolution}</div>
+                        <div><strong>Résolution:</strong> ${visit.screenResolution || 'N/A'}</div>
+                        <div><strong>Viewport:</strong> ${visit.viewport || 'N/A'}</div>
                         <div><strong>Fuseau horaire:</strong> ${visit.timezone}</div>
-                        <div><strong>Source:</strong> ${visit.referrer === 'direct' ? 'Accès direct' : visit.referrer}</div>
+                        <div><strong>IP:</strong> ${visit.ipAddress || 'N/A'}</div>
+                        <div><strong>Source:</strong> ${visit.referrer === 'direct' ? 'Accès direct' : (visit.referrer || 'N/A')}</div>
+                        <div><strong>URL:</strong> ${visit.pageUrl || 'N/A'}</div>
                     </div>
                 `;
                 container.appendChild(visitorItem);
@@ -282,31 +427,37 @@
         }
 
         function exportData() {
-            // Récupérer les données de tous les domaines
-            const allVisits = [];
-            const keys = Object.keys(localStorage);
-            
-            keys.forEach(key => {
-                if (key.startsWith('siteVisits_')) {
-                    const domainVisits = JSON.parse(localStorage.getItem(key) || '[]');
-                    allVisits.push(...domainVisits);
-                }
-            });
-            
-            // Si pas de données avec le nouveau système, essayer l'ancien
-            if (allVisits.length === 0) {
-                const oldVisits = JSON.parse(localStorage.getItem('siteVisits') || '[]');
-                allVisits.push(...oldVisits);
-            }
-            
-            const visits = allVisits;
+            const visits = allVisitsData.length > 0 ? allVisitsData : [];
             const dataStr = JSON.stringify(visits, null, 2);
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             
             const link = document.createElement('a');
             link.href = URL.createObjectURL(dataBlob);
-            link.download = `visiteurs_locaux_${new Date().toISOString().split('T')[0]}.json`;
+            link.download = `visiteurs_${new Date().toISOString().split('T')[0]}.json`;
             link.click();
+        }
+
+        function refreshData() {
+            document.getElementById('visitorsContainer').innerHTML = '<div class="no-data">Actualisation en cours...</div>';
+            loadVisitorData();
+        }
+
+        // Fonctions utilitaires
+        function getBrowserFromUA(userAgent) {
+            if (!userAgent) return 'Unknown';
+            if (userAgent.includes('Firefox')) return 'Firefox';
+            if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) return 'Chrome';
+            if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) return 'Safari';
+            if (userAgent.includes('Edg')) return 'Edge';
+            if (userAgent.includes('Opera') || userAgent.includes('OPR')) return 'Opera';
+            return 'Unknown';
+        }
+
+        function getDeviceFromUA(userAgent) {
+            if (!userAgent) return 'Unknown';
+            if (/tablet|ipad|playbook|silk/i.test(userAgent)) return 'Tablet';
+            if (/mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile|ipad|android|android 3.0|xoom|sch-i800|playbook|silk/i.test(userAgent)) return 'Mobile';
+            return 'Desktop';
         }
 
         // Charger les données au chargement de la page

@@ -8,6 +8,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Animation de chargement -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-heart">💕</div>
+            <div class="loading-text">Chargement de l'amour...</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Curseur personnalisé -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Étoiles scintillantes -->
+    <div class="stars-background"></div>
+
     <div class="container">
         <div class="content">
             <img src="Snapchat-1219597811.png" alt="Photo romantique" class="romantic-image">
@@ -76,6 +94,7 @@
             
             <button id="loveButton" class="love-button">Clique ici si tu ressens mon amour ❤️</button>
             <button id="birthdayButton" class="birthday-button">🎂 Message spécial pour ton anniversaire 🎂</button>
+            <button id="newYearButton" class="newyear-button">🎉 Bonne Année Mon Amour 🎉</button>
         </div>
     </div>
 
@@ -109,6 +128,31 @@
             </div>
         </div>
     </div>
+
+    <!-- Section de bonne année cachée -->
+    <div id="newYearSection" class="newyear-section">
+        <div class="newyear-content">
+            <button id="closeNewYear" class="close-button-newyear">×</button>
+            <div class="newyear-letter">
+                <h2>🎉 Bonne Année Mon Amour 🎉</h2>
+                <p>J'espère que tu aimeras ce message autant que les autres que je t'ai faits, et que j'arriverai à te montrer à quel point je t'aime.</p>
+
+                <p>Dans peu de temps, ça fera un an qu'on est en couple, et je veux que tu saches à quel point je t'aime. Même si nous ne nous sommes pas encore vus, tu es toujours dans mes pensées, et je sais déjà que j'adorerai le moment où tu seras enfin à mes côtés. Chaque moment que nous avons partagé, chaque rire, chaque bisou, chaque message, chaque appel, chaque embrouille ; tous ces moments-là intensifient l'amour que j'ai pour toi. Rien ne me rend plus heureux que de penser à toi et à ce que tu représentes dans ma vie.</p>
+
+                <p>L'année prochaine, inchallah, nous allons enfin nous voir, et je meurs d'impatience de pouvoir enfin te rencontrer. Je nous imagine ensemble en train de marcher main dans la main, faire tout et n'importe quoi, manger ensemble, rigoler, et simplement profiter d'être ensemble. Je veux te prendre dans mes bras, te serrer fort, te faire des bisous, et pas que sur la joue 😘, et j'espère pouvoir te prouver encore plus l'amour que je ressens pour toi. Je vivrai les meilleurs moments de ma vie avec toi.</p>
+
+                <p>Ta présence me rend plus heureux de jour en jour. Ta beauté, ton sourire, ta voix, ton regard… tout chez toi rend ma vie meilleure. Juste penser à toi et savoir que tu m'aimes me remplit de joie. Tu es la personne la plus importante pour moi, et je veux que tu le sentes à chaque mot que je t'écris aujourd'hui.</p>
+
+                <p>Je suis l'homme le plus chanceux parce que j'ai la chance d'avoir une personne comme toi dans ma vie, et parce que tu m'aimes. Tu es la meilleure personne que je connaisse, wallah. Tu es la plus gentille, et je déteste quand tu dis que tu ne l'es pas. Tu es la plus attentionnée, la plus belle, la plus drôle, la plus intelligente ; et wallah, je ne te dis pas ça juste comme ça, je le pense vraiment. Tu n'as aucun défaut. Tu es parfaite, wallah.</p>
+
+                <p>Mes mots ne suffisent pas pour décrire ta beauté, parce que je n'ai jamais vu une femme, ni quoi que ce soit, d'aussi beau que toi. Tu es la plus belle femme que j'aie jamais vue, wallah. J'arrive même plus à trouver les mots pour te montrer à quel point tu es belle, mais je te jure que tu as les plus beaux yeux, le plus beau nez, la plus belle bouche, le plus beau visage, les plus beaux cheveux, les plus belles oreilles, les plus belles mains, le plus beau ventre et le plus beau corps. Et je ne le dis pas juste par ce que je t'aime ou par ce que je veux te faire plaisir wallah. je le dis par ce que tu l'es et par ce que je le pense vraiment wallah.</p>
+
+                <p>Pour cette nouvelle année, je nous souhaite des moments incroyables ensemble, des sourires, des câlins, plein de cadeaux et tout ce qui pourra te rendre heureuse. Je t'aime profondément, et rien ne me rend plus heureux que d'imaginer tous ces instants avec toi.</p>
+
+                <p class="newyear-signature">Nchlh brk tedekhli l site ou tchoufi wsh dertlk.<br>Nmout elik emri❤️</p>
+            </div>
+        </div>
+    </div>
     <audio id="backgroundMusic" loop>
         <source src="Elissa - Aa Bali Habibi (Official Clip)  إليسا - ع بالي حبيبي.mp3" type="audio/mpeg">
     </audio>
@@ -125,6 +169,7 @@
         <div class="heart">💞</div>
     </div>
     
+    <script src="tracking-config.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 
