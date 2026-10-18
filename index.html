@@ -6,7 +6,14 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Pour Amel ❤️</title>
+    <title>Pour Amel</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1BP5PE9VNP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1BP5PE9VNP');
+    </script>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -14,8 +21,8 @@
     <!-- Animation de chargement -->
     <div id="loadingScreen" class="loading-screen">
         <div class="loading-content">
-            <div class="loading-heart">💕</div>
-            <div class="loading-text">Chargement de l'amour...</div>
+            <div class="loading-heart">✦</div>
+            <div class="loading-text">Un instant...</div>
             <div class="loading-bar">
                 <div class="loading-progress"></div>
             </div>
@@ -31,31 +38,58 @@
 
     <div class="container">
         <div class="content">
-            <img src="Snapchat-1219597811.png" alt="Photo romantique" class="romantic-image">
+            <img src="photo-nous.jpeg" alt="Souvenir" class="romantic-image">
             
-            <!-- Compteur de temps d'amour -->
-            <div class="love-counter">
-                <h2 class="counter-title">💕 Notre Histoire d'Amour 💕</h2>
+            <div class="love-counter shared-time">
+                <h2 class="counter-title">Le temps magnifique qu'on a partagé</h2>
                 <div class="counter-container">
                     <div class="counter-item">
-                        <span id="days" class="counter-number">0</span>
+                        <span id="shared-days" class="counter-number">0</span>
                         <span class="counter-label">Jours</span>
                     </div>
                     <div class="counter-item">
-                        <span id="hours" class="counter-number">0</span>
+                        <span id="shared-hours" class="counter-number">0</span>
                         <span class="counter-label">Heures</span>
                     </div>
                     <div class="counter-item">
-                        <span id="minutes" class="counter-number">0</span>
+                        <span id="shared-minutes" class="counter-number">0</span>
                         <span class="counter-label">Minutes</span>
                     </div>
                     <div class="counter-item">
-                        <span id="seconds" class="counter-number">0</span>
+                        <span id="shared-seconds" class="counter-number">0</span>
                         <span class="counter-label">Secondes</span>
                     </div>
                 </div>
-                <p class="counter-subtitle">Depuis le 12 janvier à 4h du matin ❤️</p>
+                <p class="counter-subtitle">Du 12 janvier 2025 à 4h au 15 octobre 2026 à 21h</p>
             </div>
+
+            <div class="love-counter since-counter">
+                <h2 class="counter-title">Temps écoulé depuis...</h2>
+                <div class="counter-container">
+                    <div class="counter-item">
+                        <span id="since-days" class="counter-number">0</span>
+                        <span class="counter-label">Jours</span>
+                    </div>
+                    <div class="counter-item">
+                        <span id="since-hours" class="counter-number">0</span>
+                        <span class="counter-label">Heures</span>
+                    </div>
+                    <div class="counter-item">
+                        <span id="since-minutes" class="counter-number">0</span>
+                        <span class="counter-label">Minutes</span>
+                    </div>
+                    <div class="counter-item">
+                        <span id="since-seconds" class="counter-number">0</span>
+                        <span class="counter-label">Secondes</span>
+                    </div>
+                </div>
+                <p class="counter-subtitle">Depuis le 15 octobre 2026 à 21h</p>
+            </div>
+
+            <section class="personal-message" aria-label="Message personnel">
+                <h2 class="personal-message-title">Un mot pour toi</h2>
+                <p class="personal-message-text">malgré ga3 wsh sra binatna , tu resteras toujours la personne que j'aime le plus au monde w lmera li fatet j'étais pris par les émotions et je regrette d'avoir réagi comme ça, ida tesa79i ay 3fsa wla t7abi nehadrou je serai toujours la pour toi, fais moi signe.</p>
+            </section>
 
             <div class="letter">
                 <p>Amel, j'ai toujours essayé de te montrer que je t'aimais plus que tout, mais j'ai toujours cru que ce n'était pas suffisant. Je ne sais pas quoi faire pour te prouver que je t'aime plus que n'importe qui, mais je vais essayer d'aligner des mots pour m'exprimer.</p>
@@ -83,21 +117,29 @@
                 <p class="signature">Je t'aime, la femme de ma vie ❤️❤️</p>
             </div>
             
-            <!-- Section cadeau pour la meilleure copine -->
+            <!-- Section cadeau -->
             <div class="gift-section">
-                <h2 class="gift-title">🎁 Cadeau pour la meilleure copine du monde 🎁</h2>
+                <h2 class="gift-title">Un souvenir pour toi</h2>
                 <div class="gift-content">
-                    <p class="gift-message">Un petit cadeau spécial pour toi, ma belle Amel ❤️</p>
+                    <p class="gift-message">Un petit quelque chose, sans pression, juste pour toi Amel.</p>
                     <a href="https://massi-msk.netlify.app" target="_blank" class="gift-link">
-                        <span class="gift-link-text">Découvrir mon cadeau</span>
-                        <span class="gift-link-icon">🎀</span>
+                        <span class="gift-link-text">Ouvrir le souvenir</span>
+                        <span class="gift-link-icon">✦</span>
                     </a>
                 </div>
             </div>
             
-            <button id="loveButton" class="love-button">Clique ici si tu ressens mon amour ❤️</button>
-            <button id="birthdayButton" class="birthday-button">🎂 Message spécial pour ton anniversaire 🎂</button>
-            <button id="newYearButton" class="newyear-button">🎉 Bonne Année Mon Amour 🎉</button>
+            <button id="loveButton" class="love-button">Si ces mots te touchent</button>
+            <button id="birthdayButton" class="birthday-button">Message d'anniversaire</button>
+            <button id="newYearButton" class="newyear-button">Vœux de nouvelle année</button>
+        </div>
+    </div>
+
+    <div id="loveModal" class="love-modal" role="dialog" aria-modal="true" aria-labelledby="loveModalTitle" hidden>
+        <div class="love-modal-content">
+            <h3 id="loveModalTitle">Merci</h3>
+            <p>Ces mots restent là, sans rien te demander. Prends le temps qu'il te faut.</p>
+            <button id="closeLoveModal" type="button" class="love-modal-close">Fermer</button>
         </div>
     </div>
 
@@ -160,19 +202,7 @@
         <source src="Elissa - Aa Bali Habibi (Official Clip)  إليسا - ع بالي حبيبي.mp3" type="audio/mpeg">
     </audio>
     
-    <!-- Cœurs flottants -->
-    <div class="floating-hearts">
-        <div class="heart">❤️</div>
-        <div class="heart">💕</div>
-        <div class="heart">💖</div>
-        <div class="heart">💗</div>
-        <div class="heart">💓</div>
-        <div class="heart">💝</div>
-        <div class="heart">💘</div>
-        <div class="heart">💞</div>
-    </div>
-    
     <script src="tracking-config.js"></script>
     <script src="script.js"></script>
 </body>
-</html> 
+</html>

@@ -4,9 +4,9 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+    background: linear-gradient(135deg, #0f1220 0%, #1b1f36 45%, #2a2438 100%);
     font-family: 'Poppins', sans-serif;
-    color: #333;
+    color: #2c2c34;
     overflow-x: hidden;
     position: relative;
     -webkit-text-size-adjust: 100%;
@@ -31,7 +31,7 @@ body {
     .custom-cursor {
         width: 20px;
         height: 20px;
-        border: 2px solid #ff69b4;
+        border: 2px solid #8b9bb4;
         border-radius: 50%;
         position: fixed;
         pointer-events: none;
@@ -41,7 +41,7 @@ body {
     }
 
     .custom-cursor::before {
-        content: '❤️';
+        content: '';
         position: absolute;
         top: 50%;
         left: 50%;
@@ -52,7 +52,7 @@ body {
     .cursor-follower {
         width: 8px;
         height: 8px;
-        background: #ff1493;
+        background: #c9b8d4;
         border-radius: 50%;
         position: fixed;
         pointer-events: none;
@@ -76,7 +76,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+    background: linear-gradient(135deg, #0f1220 0%, #1b1f36 50%, #2a2438 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,6 +97,7 @@ body {
     font-size: 4em;
     animation: heartbeat 1s ease-in-out infinite;
     margin-bottom: 20px;
+    will-change: transform;
 }
 
 @keyframes heartbeat {
@@ -107,7 +108,7 @@ body {
 .loading-text {
     font-family: 'Dancing Script', cursive;
     font-size: 2em;
-    color: #ff69b4;
+    color: #c9b8d4;
     margin-bottom: 30px;
     animation: pulse 2s ease-in-out infinite;
 }
@@ -120,7 +121,7 @@ body {
 .loading-bar {
     width: 300px;
     height: 4px;
-    background: rgba(255, 105, 180, 0.2);
+    background: rgba(139, 155, 180, 0.25);
     border-radius: 10px;
     overflow: hidden;
     margin: 0 auto;
@@ -128,15 +129,15 @@ body {
 
 .loading-progress {
     height: 100%;
-    background: linear-gradient(90deg, #ff69b4, #ff1493);
+    background: linear-gradient(90deg, #8b9bb4, #c9b8d4);
     border-radius: 10px;
-    animation: loadingProgress 2s ease-in-out forwards;
-    width: 0%;
+    animation: loadingProgress 1.6s ease-in-out infinite;
+    width: 40%;
 }
 
 @keyframes loadingProgress {
-    0% { width: 0%; }
-    100% { width: 100%; }
+    0% { transform: translateX(-120%); }
+    100% { transform: translateX(280%); }
 }
 
 /* Étoiles scintillantes */
@@ -159,6 +160,7 @@ body {
     border-radius: 50%;
     animation: twinkle 3s ease-in-out infinite;
     box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+    will-change: transform;
 }
 
 @keyframes twinkle {
@@ -195,9 +197,9 @@ body::before {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 80%, rgba(255, 105, 180, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 182, 193, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(255, 20, 147, 0.05) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(90, 110, 160, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(160, 140, 180, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(40, 50, 80, 0.12) 0%, transparent 50%);
     z-index: -1;
     animation: backgroundShift 20s ease-in-out infinite;
 }
@@ -245,7 +247,7 @@ body::before {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 105, 180, 0.1), transparent);
+    background: linear-gradient(45deg, transparent, rgba(201, 184, 212, 0.08), transparent);
     animation: shimmer 8s linear infinite;
     z-index: -1;
 }
@@ -268,7 +270,7 @@ body::before {
     transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
     position: relative;
     animation: imageFloat 6s ease-in-out infinite;
-    filter: drop-shadow(0 10px 20px rgba(255, 105, 180, 0.3));
+    filter: drop-shadow(0 10px 20px rgba(139, 125, 155, 0.3));
 }
 
 @keyframes imageFloat {
@@ -279,9 +281,9 @@ body::before {
 .romantic-image:hover {
     transform: scale(1.05) translateY(-10px) rotate(2deg);
     box-shadow: 
-        0 25px 50px rgba(255, 105, 180, 0.4),
-        0 0 30px rgba(255, 20, 147, 0.3);
-    filter: drop-shadow(0 15px 30px rgba(255, 105, 180, 0.5)) brightness(1.1);
+        0 25px 50px rgba(139, 125, 155, 0.4),
+        0 0 30px rgba(107, 91, 149, 0.3);
+    filter: drop-shadow(0 15px 30px rgba(139, 125, 155, 0.5)) brightness(1.1);
 }
 
 /* Compteur de temps d'amour */
@@ -289,11 +291,11 @@ body::before {
     text-align: center;
     margin: 40px 0;
     padding: 30px;
-    background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(255, 182, 193, 0.1));
+    background: linear-gradient(135deg, rgba(139, 125, 155, 0.1), rgba(201, 184, 212, 0.12));
     border-radius: 25px;
-    border: 2px solid rgba(255, 105, 180, 0.2);
+    border: 2px solid rgba(139, 125, 155, 0.2);
     box-shadow: 
-        0 10px 30px rgba(255, 105, 180, 0.2),
+        0 10px 30px rgba(139, 125, 155, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     position: relative;
     overflow: hidden;
@@ -318,7 +320,7 @@ body::before {
 .counter-title {
     font-family: 'Dancing Script', cursive;
     font-size: 2.5em;
-    color: #ff69b4;
+    color: #8b7d9b;
     margin-bottom: 25px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     animation: titleGlow 3s ease-in-out infinite alternate;
@@ -370,7 +372,7 @@ body::before {
 .counter-number {
     font-size: 2.8em;
     font-weight: bold;
-    color: #ff1493;
+    color: #6b5b95;
     font-family: 'Poppins', sans-serif;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     animation: numberPulse 2s ease-in-out infinite;
@@ -390,7 +392,7 @@ body::before {
 
 .counter-subtitle {
     font-style: italic;
-    color: #ff69b4;
+    color: #8b7d9b;
     font-size: 1.2em;
     margin: 0;
     font-family: 'Dancing Script', cursive;
@@ -415,7 +417,7 @@ body::before {
 }
 
 .letter p::before {
-    content: '💕';
+    content: '·';
     position: absolute;
     left: -10px;
     top: 0;
@@ -427,7 +429,7 @@ body::before {
     font-family: 'Dancing Script', cursive;
     font-size: 1.8em;
     text-align: right;
-    color: #ff69b4;
+    color: #8b7d9b;
     margin-top: 50px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     animation: signatureGlow 4s ease-in-out infinite alternate;
@@ -435,7 +437,7 @@ body::before {
 
 @keyframes signatureGlow {
     from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); }
-    to { text-shadow: 2px 2px 8px rgba(255, 105, 180, 0.4); }
+    to { text-shadow: 2px 2px 8px rgba(139, 125, 155, 0.4); }
 }
 
 .love-button, .birthday-button, .newyear-button {
@@ -456,20 +458,20 @@ body::before {
 }
 
 .love-button {
-    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    background: linear-gradient(45deg, #4a5568, #6b5b95);
     color: white;
-    box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4);
+    box-shadow: 0 10px 25px rgba(74, 85, 104, 0.4);
 }
 
 .birthday-button {
-    background: linear-gradient(45deg, #ffd700, #ffa500);
+    background: linear-gradient(45deg, #8b9bb4, #6b7c93);
     color: white;
-    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+    box-shadow: 0 10px 25px rgba(107, 124, 147, 0.4);
     animation: birthdayGlow 2s ease-in-out infinite alternate;
 }
 
 .newyear-button {
-    background: linear-gradient(45deg, #4a90e2, #87ceeb, #ffd700);
+    background: linear-gradient(45deg, #3d4a63, #6b7c93, #8b7d9b);
     background-size: 200% 200%;
     color: white;
     box-shadow: 0 10px 25px rgba(74, 144, 226, 0.4);
@@ -484,7 +486,7 @@ body::before {
 
 .love-button:hover, .birthday-button:hover, .newyear-button:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 15px 35px rgba(255, 105, 180, 0.6);
+    box-shadow: 0 15px 35px rgba(74, 85, 104, 0.45);
 }
 
 .love-button::before, .birthday-button::before, .newyear-button::before {
@@ -523,7 +525,7 @@ body::before {
 }
 
 .birthday-content {
-    background: linear-gradient(135deg, #fff5f5, #ffe4e1);
+    background: linear-gradient(135deg, #f7f5f8, #ece8f0);
     border-radius: 30px;
     padding: 50px;
     max-width: 850px;
@@ -531,9 +533,9 @@ body::before {
     overflow-y: auto;
     position: relative;
     box-shadow: 
-        0 30px 60px rgba(255, 105, 180, 0.3),
+        0 30px 60px rgba(139, 125, 155, 0.3),
         0 0 0 1px rgba(255, 255, 255, 0.2);
-    border: 3px solid #ff69b4;
+    border: 3px solid #8b9bb4;
     transform: scale(1);
     transition: all 0.4s ease;
     margin: auto;
@@ -545,7 +547,7 @@ body::before {
     position: absolute;
     top: 20px;
     right: 25px;
-    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    background: linear-gradient(45deg, #8b7d9b, #6b5b95);
     color: white;
     border: none;
     border-radius: 50%;
@@ -558,17 +560,17 @@ body::before {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+    box-shadow: 0 5px 15px rgba(139, 125, 155, 0.4);
 }
 
 .close-button:hover {
     transform: scale(1.1) rotate(90deg);
-    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
+    box-shadow: 0 8px 20px rgba(139, 125, 155, 0.6);
 }
 
 .birthday-letter h2 {
     text-align: center;
-    color: #ff69b4;
+    color: #8b7d9b;
     font-size: 3em;
     margin-bottom: 40px;
     font-family: 'Dancing Script', cursive;
@@ -599,12 +601,12 @@ body::before {
     font-family: 'Arial', 'Helvetica', sans-serif;
     font-size: 1.8em;
     text-align: center;
-    color: #ff1493;
+    color: #6b5b95;
     margin-top: 40px;
     font-weight: bold;
     line-height: 1.8;
-    text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
-    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    text-shadow: 2px 2px 4px rgba(139, 125, 155, 0.3);
+    background: linear-gradient(45deg, #8b7d9b, #6b5b95);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -621,7 +623,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(255, 20, 147, 0.1));
+    background: linear-gradient(135deg, rgba(139, 125, 155, 0.1), rgba(107, 91, 149, 0.1));
     border-radius: 20px;
     z-index: -1;
     animation: arabicBackground 4s ease-in-out infinite alternate;
@@ -633,24 +635,24 @@ body::before {
 }
 
 .birthday-content::-webkit-scrollbar-track {
-    background: rgba(255, 105, 180, 0.1);
+    background: rgba(139, 125, 155, 0.1);
     border-radius: 10px;
 }
 
 .birthday-content::-webkit-scrollbar-thumb {
-    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    background: linear-gradient(45deg, #8b7d9b, #6b5b95);
     border-radius: 10px;
     border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .birthday-content::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(45deg, #ff1493, #ff69b4);
+    background: linear-gradient(45deg, #6b5b95, #8b7d9b);
 }
 
 /* Animations */
 @keyframes titleGlow {
     from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); }
-    to { text-shadow: 2px 2px 8px rgba(255, 105, 180, 0.4); }
+    to { text-shadow: 2px 2px 8px rgba(139, 125, 155, 0.4); }
 }
 
 @keyframes numberPulse {
@@ -664,13 +666,13 @@ body::before {
 }
 
 @keyframes birthdayGlow {
-    from { box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4); }
-    to { box-shadow: 0 10px 25px rgba(255, 215, 0, 0.8); }
+    from { box-shadow: 0 10px 25px rgba(107, 124, 147, 0.4); }
+    to { box-shadow: 0 10px 25px rgba(107, 124, 147, 0.7); }
 }
 
 @keyframes newYearGlow {
-    from { box-shadow: 0 10px 25px rgba(74, 144, 226, 0.4); }
-    to { box-shadow: 0 10px 25px rgba(255, 215, 0, 0.8); }
+    from { box-shadow: 0 10px 25px rgba(74, 85, 104, 0.4); }
+    to { box-shadow: 0 10px 25px rgba(139, 125, 155, 0.55); }
 }
 
 @keyframes bounce {
@@ -681,8 +683,8 @@ body::before {
 }
 
 @keyframes arabicGlow {
-    from { filter: drop-shadow(0 0 5px rgba(255, 105, 180, 0.5)); }
-    to { filter: drop-shadow(0 0 15px rgba(255, 20, 147, 0.8)); }
+    from { filter: drop-shadow(0 0 5px rgba(139, 125, 155, 0.5)); }
+    to { filter: drop-shadow(0 0 15px rgba(107, 91, 149, 0.6)); }
 }
 
 @keyframes arabicBackground {
@@ -938,87 +940,10 @@ body::before {
     }
 }
 
-/* Cœurs flottants */
-.floating-hearts {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.heart {
-    position: absolute;
-    font-size: 20px;
-    animation: float 6s ease-in-out infinite;
-    opacity: 0.6;
-}
-
-.heart:nth-child(1) {
-    left: 10%;
-    animation-delay: 0s;
-    animation-duration: 8s;
-}
-
-.heart:nth-child(2) {
-    left: 20%;
-    animation-delay: 1s;
-    animation-duration: 7s;
-}
-
-.heart:nth-child(3) {
-    left: 30%;
-    animation-delay: 2s;
-    animation-duration: 9s;
-}
-
-.heart:nth-child(4) {
-    left: 40%;
-    animation-delay: 3s;
-    animation-duration: 6s;
-}
-
-.heart:nth-child(5) {
-    left: 50%;
-    animation-delay: 4s;
-    animation-duration: 8s;
-}
-
-.heart:nth-child(6) {
-    left: 60%;
-    animation-delay: 5s;
-    animation-duration: 7s;
-}
-
-.heart:nth-child(7) {
-    left: 70%;
-    animation-delay: 6s;
-    animation-duration: 9s;
-}
-
-.heart:nth-child(8) {
-    left: 80%;
-    animation-delay: 7s;
-    animation-duration: 6s;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.6;
-    }
-    90% {
-        opacity: 0.6;
-    }
-    100% {
-        transform: translateY(-100px) rotate(360deg);
-        opacity: 0;
-    }
+.floating-hearts,
+.heart,
+.click-particle {
+    display: none !important;
 }
 
 /* Section cadeau pour la meilleure copine */
@@ -1026,11 +951,11 @@ body::before {
     text-align: center;
     margin: 40px 0;
     padding: 35px;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
+    background: linear-gradient(135deg, rgba(139, 155, 180, 0.12), rgba(201, 184, 212, 0.1));
     border-radius: 25px;
-    border: 3px solid rgba(255, 215, 0, 0.3);
+    border: 3px solid rgba(139, 155, 180, 0.28);
     box-shadow: 
-        0 15px 35px rgba(255, 215, 0, 0.2),
+        0 15px 35px rgba(74, 85, 104, 0.18),
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
     position: relative;
     overflow: hidden;
@@ -1049,8 +974,8 @@ body::before {
 }
 
 @keyframes giftGlow {
-    from { box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2); }
-    to { box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4); }
+    from { box-shadow: 0 15px 35px rgba(74, 85, 104, 0.18); }
+    to { box-shadow: 0 15px 35px rgba(139, 125, 155, 0.28); }
 }
 
 @keyframes giftShimmer {
@@ -1061,7 +986,7 @@ body::before {
 .gift-title {
     font-family: 'Dancing Script', cursive;
     font-size: 2.8em;
-    color: #ff8c00;
+    color: #5c5470;
     margin-bottom: 25px;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
     animation: giftTitleFloat 3s ease-in-out infinite alternate;
@@ -1081,7 +1006,7 @@ body::before {
 
 .gift-message {
     font-size: 1.3em;
-    color: #ff6b35;
+    color: #6b7c93;
     margin-bottom: 25px;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
@@ -1093,7 +1018,7 @@ body::before {
     align-items: center;
     gap: 15px;
     padding: 20px 35px;
-    background: linear-gradient(45deg, #ffd700, #ffa500);
+    background: linear-gradient(45deg, #6b7c93, #8b7d9b);
     color: white;
     text-decoration: none;
     border-radius: 50px;
@@ -1101,7 +1026,7 @@ body::before {
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
     box-shadow: 
-        0 10px 25px rgba(255, 215, 0, 0.4),
+        0 10px 25px rgba(107, 124, 147, 0.4),
         0 0 0 2px rgba(255, 255, 255, 0.3);
     transition: all 0.3s ease;
     text-transform: uppercase;
@@ -1124,7 +1049,7 @@ body::before {
 .gift-link:hover {
     transform: translateY(-5px) scale(1.05);
     box-shadow: 
-        0 20px 40px rgba(255, 215, 0, 0.6),
+        0 20px 40px rgba(107, 124, 147, 0.45),
         0 0 0 2px rgba(255, 255, 255, 0.5);
 }
 
@@ -1192,7 +1117,7 @@ body::before {
 
 .letter:hover, .gift-section:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+    box-shadow: 0 10px 30px rgba(139, 125, 155, 0.2);
 }
 
 /* Effet de brillance sur les boutons */
@@ -1429,4 +1354,134 @@ body::before {
         top: 15px;
         right: 15px;
     }
+
+    .personal-message {
+        padding: 24px 18px;
+        margin: 25px 0;
+    }
+
+    .personal-message-title {
+        font-size: 1.8em;
+    }
+
+    .personal-message-text {
+        font-size: 1.05em;
+    }
+}
+
+.shared-time .counter-number {
+    animation: none;
+}
+
+.since-counter {
+    background: linear-gradient(135deg, rgba(27, 31, 54, 0.06), rgba(139, 125, 155, 0.1));
+    border-color: rgba(107, 124, 147, 0.25);
+}
+
+.personal-message {
+    margin: 40px 0;
+    padding: 42px 36px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(247, 245, 248, 0.95));
+    border-radius: 24px;
+    border: 1px solid rgba(139, 125, 155, 0.22);
+    box-shadow: 0 12px 32px rgba(15, 18, 32, 0.08);
+}
+
+.personal-message-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 2.1em;
+    color: #3d3a48;
+    margin: 0 0 22px;
+    letter-spacing: 0.04em;
+}
+
+.personal-message-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2em;
+    line-height: 1.85;
+    color: #4a4754;
+    margin: 0;
+    font-weight: 400;
+    max-width: 38em;
+    margin-inline: auto;
+}
+
+.love-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 18, 32, 0.55);
+    backdrop-filter: blur(8px);
+    z-index: 11000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.28s ease, visibility 0.28s ease;
+    padding: 20px;
+}
+
+.love-modal.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.love-modal[hidden] {
+    display: none;
+}
+
+.love-modal.is-visible[hidden] {
+    display: flex;
+}
+
+.love-modal-content {
+    background: #f7f5f8;
+    color: #3d3a48;
+    border-radius: 22px;
+    padding: 36px 32px 28px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 24px 50px rgba(15, 18, 32, 0.28);
+    border: 1px solid rgba(201, 184, 212, 0.5);
+    transform: translateY(12px);
+    transition: transform 0.28s ease;
+}
+
+.love-modal.is-visible .love-modal-content {
+    transform: translateY(0);
+}
+
+.love-modal-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: 1.8em;
+    margin: 0 0 14px;
+}
+
+.love-modal-content p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    margin: 0 0 24px;
+    color: #5c5866;
+}
+
+.love-modal-close {
+    background: linear-gradient(45deg, #4a5568, #6b5b95);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 28px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95em;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+}
+
+.love-modal-close:hover {
+    transform: translateY(-1px);
 } 
